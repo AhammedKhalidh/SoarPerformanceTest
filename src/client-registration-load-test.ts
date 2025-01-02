@@ -16,7 +16,7 @@ export let options = {
 export default function () {
   // Make a POST request to the '/client_registeration' endpoint
   let response = http.post(`${BASE_URL}/client_registeration`, JSON.stringify({
-    "full_name": "John Doe",
+    "fullName": "John Doe",
     "userName": "John Doe",
     "email": "johndoe@example.com",
     "password": "Tester@123455",

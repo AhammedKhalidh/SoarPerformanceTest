@@ -60,7 +60,7 @@ export default function () {
   
   // Given that a new user wants to register
   let registrationPayload = {
-    "full_name": generateRandomUsername(),
+    "fullName": generateRandomUsername(),
     "userName": generateRandomUsername(),
     "email": generateRandomEmail(),
     phone_number: generateRandomPhoneNumber(), // Random phone number
@@ -83,7 +83,6 @@ export default function () {
   let loginPayload = {
     userName: registrationPayload.userName,
     email: registrationPayload.email, 
-    phone_number: registrationPayload.phone_number,
     password: registrationPayload.password,
   };
 
