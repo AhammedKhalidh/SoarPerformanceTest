@@ -16,11 +16,34 @@ function generateRandomPassword(length: number = 12): string {
   return password;
 }
 
+function generateRandomString(length: number): string {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters[randomIndex];
+  }
+  return result;
+}
+
+// Function to generate a random username
+function generateRandomUsername(): string {
+  const usernameLength = 8; // You can change this length
+  return generateRandomString(usernameLength);
+}
+
 function generateRandomPhoneNumber(): string {
   const areaCode = Math.floor(Math.random() * 900 + 100);  // 3 digits
   const firstPart = Math.floor(Math.random() * 900 + 100);  // 3 digits
   const secondPart = Math.floor(Math.random() * 9000 + 1000);  // 4 digits
   return `+1 (${areaCode}) ${firstPart}-${secondPart}`;
+}
+
+function generateRandomEmail(): string {
+  const usernameLength = 10; // You can change the length of the username
+  const domain = 'example.com'; // You can change the domain
+  const randomUsername = generateRandomString(usernameLength);
+  return `${randomUsername}@${domain}`;
 }
 // K6 options
 export let options = {
@@ -37,11 +60,14 @@ export default function () {
   
   // Given that a new user wants to register
   let registrationPayload = {
+    "full_name": generateRandomUsername(),
+    "userName": generateRandomUsername(),
+    "email": generateRandomEmail(),
     phone_number: generateRandomPhoneNumber(), // Random phone number
     password: generateRandomPassword(12),        // Random password of 12 characters
   };
 
-  let registrationRes = http.post(`${BASE_URL}/client_register`, JSON.stringify(registrationPayload), {
+  let registrationRes = http.post(`${BASE_URL}/client_registeration`, JSON.stringify(registrationPayload), {
     headers: { 'Content-Type': 'application/json' },
   });
 
@@ -55,6 +81,8 @@ export default function () {
 
   // Given that the user has successfully registered, proceed to login
   let loginPayload = {
+    userName: registrationPayload.userName,
+    email: registrationPayload.email, 
     phone_number: registrationPayload.phone_number,
     password: registrationPayload.password,
   };
