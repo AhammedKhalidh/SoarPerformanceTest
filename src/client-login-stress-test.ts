@@ -16,8 +16,9 @@ export let options = {
 export default function () {
   // Define the payload for the /client_login endpoint
   const payload = JSON.stringify({
-    phone_number: "1234567890", // Replace with a valid phone number for testing
-    password: "TestPassword123", // Replace with the appropriate test password
+    userName: "Admin",
+    email: "admin@test.com", // Replace with a valid phone number for testing
+    password: "admin@1234", // Replace with the appropriate test password
   });
 
   // Make a POST request to the /client_login endpoint
